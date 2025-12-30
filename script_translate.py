@@ -461,7 +461,12 @@ def worker_process_language(df, lang_id, lang_def):
     translated_words = batch_translate_text(df['English_word'].tolist(), code)
     
     # 3. Translate 'Description' Column
-    translated_desc = batch_translate_text(df['English_descr'].tolist(), code)
+    # Check if 'English_descr' exists (it should, due to main() checks), otherwise default to empty.
+    # This guarantees the description column is always created.
+    if 'English_descr' in df.columns:
+        translated_desc = batch_translate_text(df['English_descr'].tolist(), code)
+    else:
+        translated_desc = [""] * len(df)
     
     return {
         'w_col': f"{clean_name}_word",  # The column header for the word
@@ -551,6 +556,14 @@ def main():
 
     print(f"\nReading {INPUT_FILE}...")
     df = pd.read_excel(INPUT_FILE).fillna('')
+    
+    # ----------------------------------------------------------------------
+    # FIX START: Ensure 'English_descr' exists to guarantee 2-column output
+    # ----------------------------------------------------------------------
+    if 'English_descr' not in df.columns:
+        print("[INFO] 'English_descr' column missing in source. Creating empty column to ensure structure.")
+        df['English_descr'] = ""
+    # ----------------------------------------------------------------------
 
     target_ids = [i for i in sel_ids if i != 1]
     
