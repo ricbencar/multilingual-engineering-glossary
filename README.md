@@ -30,7 +30,7 @@ The system operates on three strict architectural principles to ensure typograph
 
 * **Operating System:** Windows 10/11, macOS Catalina+, or Linux (Ubuntu 20.04+).
 * **Python Runtime:** Python 3.8 or higher (Strict requirement for `python-bidi` stability).
-* **Storage:** $\approx$600MB free space (400MB reserved for Font Assets).
+* **Storage:** approx. 600MB free space (400MB reserved for Font Assets).
 
 ### 2.2 Dependency Stack
 
@@ -238,3 +238,4 @@ Generates a wide comparison table.
 python script_table.py
 # Output: table.pdf
 ```
+
